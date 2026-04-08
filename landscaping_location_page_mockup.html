@@ -1,0 +1,451 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-sans); color: var(--color-text-primary); background: transparent; }
+
+  .badge { display: inline-block; background: #e6f4ea; color: #2d6a3f; font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.3px; }
+
+  /* NAV */
+  .nav { background: #1a3d1f; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .nav-logo { color: #fff; font-size: 17px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .nav-logo .leaf { width: 22px; height: 22px; background: #4caf78; border-radius: 50% 0 50% 0; display: inline-block; }
+  .nav-links { display: flex; gap: 20px; }
+  .nav-links a { color: rgba(255,255,255,0.8); font-size: 13px; text-decoration: none; }
+  .nav-cta { background: #4caf78; color: #fff; font-size: 13px; font-weight: 500; padding: 8px 18px; border-radius: 6px; border: none; cursor: pointer; }
+
+  /* HERO */
+  .hero { background: linear-gradient(135deg, #1a3d1f 0%, #2d5c35 60%, #3a7048 100%); padding: 56px 28px 48px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; right: -40px; top: -40px; width: 300px; height: 300px; background: rgba(76,175,120,0.08); border-radius: 50%; }
+  .hero-breadcrumb { font-size: 12px; color: rgba(255,255,255,0.55); margin-bottom: 12px; }
+  .hero-breadcrumb span { color: rgba(255,255,255,0.8); }
+  .hero h1 { font-size: 28px; font-weight: 500; color: #fff; line-height: 1.3; margin-bottom: 12px; max-width: 500px; }
+  .hero h1 em { color: #7ed9a0; font-style: normal; }
+  .hero-sub { font-size: 14px; color: rgba(255,255,255,0.75); margin-bottom: 28px; max-width: 460px; line-height: 1.6; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 28px; }
+  .btn-primary { background: #4caf78; color: #fff; font-size: 14px; font-weight: 500; padding: 12px 22px; border-radius: 7px; border: none; cursor: pointer; }
+  .btn-outline { background: transparent; color: #fff; font-size: 14px; padding: 11px 22px; border-radius: 7px; border: 1.5px solid rgba(255,255,255,0.4); cursor: pointer; }
+  .hero-trust { display: flex; gap: 18px; flex-wrap: wrap; }
+  .trust-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(255,255,255,0.75); }
+  .trust-dot { width: 6px; height: 6px; background: #7ed9a0; border-radius: 50%; }
+
+  /* STATS STRIP */
+  .stats-strip { background: #fff; border-bottom: 0.5px solid var(--color-border-tertiary); display: flex; }
+  .stat-item { flex: 1; padding: 18px 16px; text-align: center; border-right: 0.5px solid var(--color-border-tertiary); }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-size: 22px; font-weight: 500; color: #1a3d1f; }
+  .stat-label { font-size: 11px; color: var(--color-text-secondary); margin-top: 3px; }
+
+  /* BODY */
+  .page-body { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+
+  /* INTRO */
+  .intro-section { padding: 36px 0 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+  .intro-text h2 { font-size: 19px; font-weight: 500; margin-bottom: 12px; }
+  .intro-text p { font-size: 14px; line-height: 1.7; color: var(--color-text-secondary); margin-bottom: 12px; }
+  .intro-card { background: #f3faf5; border: 0.5px solid #b5d9c0; border-radius: 10px; padding: 18px; }
+  .intro-card .label { font-size: 11px; font-weight: 500; color: #2d6a3f; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 10px; }
+  .contact-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 14px; }
+  .contact-row:last-child { margin-bottom: 0; }
+  .icon-circle { width: 30px; height: 30px; border-radius: 50%; background: #1a3d1f; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .icon-circle svg { width: 14px; height: 14px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; }
+  .cta-mini { width: 100%; background: #1a3d1f; color: #fff; font-size: 13px; font-weight: 500; padding: 11px; border-radius: 7px; border: none; cursor: pointer; margin-top: 14px; }
+
+  /* SERVICES */
+  .section { padding: 28px 0; border-top: 0.5px solid var(--color-border-tertiary); }
+  .section-header { margin-bottom: 18px; }
+  .section-header h2 { font-size: 19px; font-weight: 500; margin-bottom: 6px; }
+  .section-header p { font-size: 13px; color: var(--color-text-secondary); }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .service-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 16px; cursor: pointer; transition: border-color 0.15s; }
+  .service-card:hover { border-color: #4caf78; }
+  .service-icon { width: 36px; height: 36px; background: #e6f4ea; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; font-size: 18px; }
+  .service-card h3 { font-size: 13px; font-weight: 500; margin-bottom: 5px; }
+  .service-card p { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+  .service-link { font-size: 11px; color: #2d6a3f; font-weight: 500; margin-top: 8px; display: block; }
+
+  /* PROCESS */
+  .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .step { text-align: center; padding: 16px 10px; }
+  .step-num { width: 34px; height: 34px; background: #1a3d1f; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 500; margin: 0 auto 10px; }
+  .step h4 { font-size: 13px; font-weight: 500; margin-bottom: 5px; }
+  .step p { font-size: 11px; color: var(--color-text-secondary); line-height: 1.5; }
+  .step-connector { display: none; }
+
+  /* GALLERY */
+  .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .gallery-item { border-radius: 8px; overflow: hidden; }
+  .gallery-ph { height: 110px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: rgba(255,255,255,0.8); font-weight: 500; }
+  .gallery-ph.g1 { background: linear-gradient(135deg, #2d5c35, #4caf78); }
+  .gallery-ph.g2 { background: linear-gradient(135deg, #1a4a25, #3a7048); }
+  .gallery-ph.g3 { background: linear-gradient(135deg, #3a7048, #5dc882); }
+  .gallery-label { background: var(--color-background-secondary); font-size: 11px; padding: 6px 10px; color: var(--color-text-secondary); }
+
+  /* REVIEWS */
+  .reviews-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .review-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 16px; }
+  .review-top { display: flex; justify-content: space-between; align-items: start; margin-bottom: 10px; }
+  .reviewer { display: flex; align-items: center; gap: 10px; }
+  .avatar { width: 36px; height: 36px; border-radius: 50%; background: #1a3d1f; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 13px; font-weight: 500; }
+  .reviewer-info .name { font-size: 13px; font-weight: 500; }
+  .reviewer-info .loc { font-size: 11px; color: var(--color-text-secondary); }
+  .stars { color: #f4a81d; font-size: 13px; }
+  .review-text { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+  .review-summary { background: #f3faf5; border: 0.5px solid #b5d9c0; border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 16px; margin-top: 16px; }
+  .big-rating { font-size: 38px; font-weight: 500; color: #1a3d1f; }
+  .rating-detail .stars-lg { color: #f4a81d; font-size: 18px; }
+  .rating-detail p { font-size: 12px; color: var(--color-text-secondary); }
+
+  /* FAQ */
+  .faq-list { display: flex; flex-direction: column; gap: 2px; }
+  .faq-item { border: 0.5px solid var(--color-border-tertiary); border-radius: 8px; overflow: hidden; }
+  .faq-q { padding: 14px 16px; font-size: 13px; font-weight: 500; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: var(--color-background-primary); }
+  .faq-q .arrow { color: var(--color-text-secondary); font-size: 16px; transition: transform 0.2s; }
+  .faq-a { padding: 0 16px 14px; font-size: 13px; color: var(--color-text-secondary); line-height: 1.65; }
+
+  /* MAP SECTION */
+  .map-section { border-radius: 10px; overflow: hidden; border: 0.5px solid var(--color-border-tertiary); margin-bottom: 10px; }
+  .map-placeholder { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); height: 180px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+  .map-pin { width: 32px; height: 32px; background: #1a3d1f; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); display: flex; align-items: center; justify-content: center; }
+  .map-pin-inner { width: 12px; height: 12px; background: #fff; border-radius: 50%; transform: rotate(45deg); }
+  .map-caption { font-size: 12px; color: #2d6a3f; font-weight: 500; }
+  .areas-chips { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+  .chip { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: 20px; padding: 5px 12px; font-size: 12px; color: var(--color-text-secondary); }
+
+  /* FINAL CTA BANNER */
+  .cta-banner { background: linear-gradient(135deg, #1a3d1f, #2d5c35); border-radius: 12px; padding: 32px 28px; text-align: center; margin: 28px 0; }
+  .cta-banner h2 { color: #fff; font-size: 20px; font-weight: 500; margin-bottom: 8px; }
+  .cta-banner p { color: rgba(255,255,255,0.75); font-size: 13px; margin-bottom: 22px; }
+  .cta-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .cta-green { background: #4caf78; color: #fff; font-size: 14px; font-weight: 500; padding: 12px 24px; border-radius: 7px; border: none; cursor: pointer; }
+  .cta-white { background: rgba(255,255,255,0.12); color: #fff; font-size: 14px; padding: 12px 24px; border-radius: 7px; border: 1.5px solid rgba(255,255,255,0.35); cursor: pointer; }
+  .guarantee-row { display: flex; gap: 20px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+  .guarantee-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(255,255,255,0.7); }
+  .g-dot { width: 5px; height: 5px; background: #7ed9a0; border-radius: 50%; }
+
+  /* FOOTER STRIP */
+  .footer-strip { background: #1a3d1f; padding: 18px 28px; display: flex; align-items: center; justify-content: space-between; }
+  .footer-logo { color: #fff; font-size: 14px; font-weight: 500; }
+  .footer-info { font-size: 12px; color: rgba(255,255,255,0.6); text-align: center; }
+  .footer-cta { font-size: 13px; color: #7ed9a0; }
+
+  /* FLOATING CTA */
+  .floating-bar { background: #fff; border-top: 0.5px solid var(--color-border-tertiary); padding: 10px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .float-text { font-size: 13px; font-weight: 500; }
+  .float-sub { font-size: 11px; color: var(--color-text-secondary); }
+  .float-btn { background: #4caf78; color: #fff; font-size: 13px; font-weight: 500; padding: 10px 20px; border-radius: 7px; border: none; cursor: pointer; white-space: nowrap; }
+
+  .divider-label { font-size: 11px; font-weight: 500; color: var(--color-text-secondary); text-align: center; padding: 10px 0 4px; letter-spacing: 0.4px; text-transform: uppercase; }
+</style>
+
+<!-- NAVIGATION -->
+<div class="nav">
+  <div class="nav-logo">
+    <div class="leaf"></div>
+    GreenScape Pro
+  </div>
+  <div class="nav-links">
+    <a href="#">Services</a>
+    <a href="#">Locations</a>
+    <a href="#">Gallery</a>
+    <a href="#">About</a>
+  </div>
+  <button class="nav-cta">Get Free Quote</button>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-breadcrumb">Home › Locations › <span>Austin, TX</span></div>
+  <div class="badge">Serving Austin Since 2009</div>
+  <h1 style="margin-top:10px;">Professional Landscaping Services in <em>Austin, TX</em></h1>
+  <p class="hero-sub">From lawn care and landscape design to hardscaping and irrigation — GreenScape Pro delivers beautiful, lasting outdoor spaces for Austin homeowners and businesses.</p>
+  <div class="hero-actions">
+    <button class="btn-primary">📞 Call (512) 555-0190</button>
+    <button class="btn-outline">Get a Free Estimate →</button>
+  </div>
+  <div class="hero-trust">
+    <div class="trust-item"><div class="trust-dot"></div>Licensed & Insured</div>
+    <div class="trust-item"><div class="trust-dot"></div>500+ Austin Projects</div>
+    <div class="trust-item"><div class="trust-dot"></div>Free Consultations</div>
+    <div class="trust-item"><div class="trust-dot"></div>Same-Week Availability</div>
+  </div>
+</div>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="stat-item"><div class="stat-num">15+</div><div class="stat-label">Years in Austin</div></div>
+  <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Local Projects Done</div></div>
+  <div class="stat-item"><div class="stat-num">4.9★</div><div class="stat-label">Google Rating</div></div>
+  <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Satisfaction Guarantee</div></div>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- INTRO + CONTACT CARD -->
+  <div class="intro-section">
+    <div class="intro-text">
+      <h2>Austin's Trusted Landscaping Experts</h2>
+      <p>GreenScape Pro has been transforming outdoor spaces across Austin, TX for over 15 years. We understand the unique challenges of Central Texas landscaping — from the intense summer heat to clay-heavy soils and Hill Country terrain.</p>
+      <p>Whether you're a homeowner in South Congress, a business in Domain, or a property manager in Round Rock, our team delivers exceptional results that hold up to the Texas climate.</p>
+    </div>
+    <div class="intro-card">
+      <div class="label">📍 Austin, TX Office</div>
+      <div class="contact-row">
+        <div class="icon-circle">
+          <svg viewBox="0 0 16 16"><path d="M8 1.5A4.5 4.5 0 0 0 3.5 6c0 3 4.5 8.5 4.5 8.5S12.5 9 12.5 6A4.5 4.5 0 0 0 8 1.5z"/><circle cx="8" cy="6" r="1.5"/></svg>
+        </div>
+        <div style="font-size:13px;">1402 South Lamar Blvd, Austin, TX 78704</div>
+      </div>
+      <div class="contact-row">
+        <div class="icon-circle">
+          <svg viewBox="0 0 16 16"><path d="M2 3h3l1.5 3.5-1.5 1a9 9 0 0 0 4 4l1-1.5L13 11v3a1 1 0 0 1-1 1C5.373 15 1 10.627 1 5a1 1 0 0 1 1-1z"/></svg>
+        </div>
+        <div style="font-size:13px;">(512) 555-0190</div>
+      </div>
+      <div class="contact-row">
+        <div class="icon-circle">
+          <svg viewBox="0 0 16 16"><rect x="1" y="3" width="14" height="10" rx="1"/><path d="M1 4l7 5 7-5"/></svg>
+        </div>
+        <div style="font-size:13px;">austin@greenscapepro.com</div>
+      </div>
+      <div class="contact-row">
+        <div class="icon-circle">
+          <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5l2 2"/></svg>
+        </div>
+        <div style="font-size:13px;">Mon–Sat, 7am – 6pm</div>
+      </div>
+      <button class="cta-mini">📋 Request a Free Quote</button>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="section">
+    <div class="section-header">
+      <h2>Our Landscaping Services in Austin, TX</h2>
+      <p>Comprehensive outdoor solutions tailored to Central Texas conditions</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🌿</div>
+        <h3>Lawn Care & Maintenance</h3>
+        <p>Regular mowing, edging, fertilization, and weed control to keep your Austin lawn lush year-round.</p>
+        <span class="service-link">Learn more →</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎨</div>
+        <h3>Landscape Design</h3>
+        <p>Custom design plans for residential and commercial properties, built for Texas climate and aesthetics.</p>
+        <span class="service-link">Learn more →</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🪨</div>
+        <h3>Hardscaping</h3>
+        <p>Patios, walkways, retaining walls, and outdoor living spaces built to last in Austin's heat.</p>
+        <span class="service-link">Learn more →</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">💧</div>
+        <h3>Irrigation & Drainage</h3>
+        <p>Smart sprinkler systems and drainage solutions optimized for Texas water restrictions.</p>
+        <span class="service-link">Learn more →</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌳</div>
+        <h3>Tree & Shrub Care</h3>
+        <p>Trimming, pruning, removal, and health treatments for Austin's native and ornamental trees.</p>
+        <span class="service-link">Learn more →</span>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🍂</div>
+        <h3>Seasonal Cleanups</h3>
+        <p>Spring and fall yard cleanups, mulching, and prep work for Austin's seasonal transitions.</p>
+        <span class="service-link">Learn more →</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="section">
+    <div class="section-header">
+      <h2>How It Works</h2>
+      <p>Getting started with GreenScape Pro is fast and easy</p>
+    </div>
+    <div class="process-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Request a Quote</h4>
+        <p>Call us or fill out our form — we respond within 2 hours on business days.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Free Consultation</h4>
+        <p>We visit your property in Austin and assess your needs — no charge, no pressure.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Custom Plan & Quote</h4>
+        <p>Receive a detailed, transparent quote with no hidden fees or surprise charges.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>We Get to Work</h4>
+        <p>Our licensed Austin crew shows up on time and delivers stunning results.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROJECT GALLERY -->
+  <div class="section">
+    <div class="section-header">
+      <h2>Recent Austin Projects</h2>
+      <p>Before & after transformations from real Austin customers</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <div class="gallery-ph g1">📸 Before → After</div>
+        <div class="gallery-label">South Austin Backyard Renovation</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-ph g2">📸 Before → After</div>
+        <div class="gallery-label">Mueller District Patio Install</div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-ph g3">📸 Before → After</div>
+        <div class="gallery-label">Cedar Park Lawn Transformation</div>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:14px;"><button style="background:transparent; border:0.5px solid var(--color-border-secondary); border-radius:7px; padding:9px 20px; font-size:13px; cursor:pointer; color:var(--color-text-primary);">View Full Austin Gallery →</button></div>
+  </div>
+
+  <!-- REVIEWS -->
+  <div class="section">
+    <div class="section-header">
+      <h2>What Austin Customers Are Saying</h2>
+      <p>Real reviews from real homeowners across the Austin area</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-top">
+          <div class="reviewer">
+            <div class="avatar">JT</div>
+            <div class="reviewer-info">
+              <div class="name">James T.</div>
+              <div class="loc">South Congress, Austin</div>
+            </div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="review-text">"GreenScape Pro completely transformed our backyard. The team was professional, on time, and the result was beyond what we imagined. Best landscaping company in Austin by far."</p>
+      </div>
+      <div class="review-card">
+        <div class="review-top">
+          <div class="reviewer">
+            <div class="avatar">MR</div>
+            <div class="reviewer-info">
+              <div class="name">Maria R.</div>
+              <div class="loc">Domain Area, Austin</div>
+            </div>
+          </div>
+          <div class="stars">★★★★★</div>
+        </div>
+        <p class="review-text">"Finally found a landscaper in Austin who actually shows up when they say they will. Lawn looks incredible. Signed up for their monthly maintenance plan and haven't looked back."</p>
+      </div>
+    </div>
+    <div class="review-summary">
+      <div class="big-rating">4.9</div>
+      <div class="rating-detail">
+        <div class="stars-lg">★★★★★</div>
+        <p style="font-size:13px; font-weight:500; margin-top:4px;">Based on 180+ Google reviews</p>
+        <p style="font-size:12px; margin-top:3px; color: var(--color-text-secondary);">Serving Austin, TX since 2009</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICE AREA MAP -->
+  <div class="section">
+    <div class="section-header">
+      <h2>Austin Service Area</h2>
+      <p>We serve all Austin neighborhoods and surrounding communities</p>
+    </div>
+    <div class="map-section">
+      <div class="map-placeholder">
+        <div class="map-pin"><div class="map-pin-inner"></div></div>
+        <div class="map-caption">📍 Interactive Google Map — Austin, TX Service Area</div>
+        <div style="font-size:11px; color:#2d6a3f;">(Embedded Google Map goes here)</div>
+      </div>
+    </div>
+    <div class="areas-chips">
+      <div class="chip">South Austin</div>
+      <div class="chip">North Austin</div>
+      <div class="chip">East Austin</div>
+      <div class="chip">West Lake Hills</div>
+      <div class="chip">Round Rock</div>
+      <div class="chip">Cedar Park</div>
+      <div class="chip">Georgetown</div>
+      <div class="chip">Pflugerville</div>
+      <div class="chip">Buda</div>
+      <div class="chip">Kyle</div>
+      <div class="chip">Manor</div>
+      <div class="chip">Leander</div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section">
+    <div class="section-header">
+      <h2>Frequently Asked Questions — Austin Landscaping</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">How much does landscaping cost in Austin, TX? <span class="arrow">▾</span></div>
+        <div class="faq-a">Most Austin landscaping projects range from $500–$5,000+ depending on scope. Lawn maintenance plans start at $75/month. We provide free, detailed quotes with no obligation.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Do you offer free estimates in Austin? <span class="arrow">▾</span></div>
+        <div class="faq-a">Yes! All consultations and estimates are completely free. We'll visit your property, assess your needs, and provide a detailed written quote within 24 hours.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Are you licensed and insured in Texas? <span class="arrow">▾</span></div>
+        <div class="faq-a">Absolutely. GreenScape Pro is fully licensed in Texas and carries full liability insurance and workers' compensation coverage on every project.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What areas of Austin do you serve? <span class="arrow">▾</span></div>
+        <div class="faq-a">We cover all Austin neighborhoods including South Austin, East Austin, North Austin, Westlake, and surrounding cities like Round Rock, Cedar Park, Georgetown, and Pflugerville.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL CTA BANNER -->
+  <div class="cta-banner">
+    <div class="badge" style="background:rgba(76,175,120,0.2); color:#7ed9a0;">Ready to Get Started?</div>
+    <h2 style="margin-top:12px;">Transform Your Austin Yard Today</h2>
+    <p>Join 500+ happy Austin homeowners. Free estimate — no pressure, no commitment.</p>
+    <div class="cta-buttons">
+      <button class="cta-green">📞 Call (512) 555-0190</button>
+      <button class="cta-white">📋 Request Free Estimate</button>
+    </div>
+    <div class="guarantee-row">
+      <div class="guarantee-item"><div class="g-dot"></div>100% Satisfaction Guarantee</div>
+      <div class="guarantee-item"><div class="g-dot"></div>Licensed & Insured</div>
+      <div class="guarantee-item"><div class="g-dot"></div>No Hidden Fees</div>
+      <div class="guarantee-item"><div class="g-dot"></div>Same-Week Scheduling</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER STRIP -->
+<div class="footer-strip">
+  <div class="footer-logo">🌿 GreenScape Pro</div>
+  <div class="footer-info">© 2026 GreenScape Pro | Austin, TX | Privacy Policy</div>
+  <div class="footer-cta">📞 (512) 555-0190</div>
+</div>
+
+<!-- STICKY MOBILE CTA BAR -->
+<div style="background: var(--color-background-secondary); border-top: 0.5px solid var(--color-border-tertiary); padding: 8px 16px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+  <div>
+    <div style="font-size: 13px; font-weight: 500;">Ready for a better yard?</div>
+    <div style="font-size: 11px; color: var(--color-text-secondary);">Free estimate — responds in 2 hours</div>
+  </div>
+  <button class="float-btn">Get Free Quote</button>
+</div>
